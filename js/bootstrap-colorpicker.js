@@ -216,7 +216,7 @@
 		},
 		
 		hide: function(){
-			this.picker.hide();
+			this.picker.hide().detach();
 			$(window).off('resize', this.place);
 			if (!this.isInput) {
 				$(document).off({
