@@ -137,9 +137,7 @@
 		this.isInput = this.element.is('input');
 		this.component = this.element.is('.color') ? this.element.find('.add-on') : false;
 		
-		this.picker = $(CPGlobal.template)
-							.appendTo('body')
-							.on('mousedown', $.proxy(this.mousedown, this));
+		this.picker = $(CPGlobal.template).on('mousedown', $.proxy(this.mousedown, this));
 		
 		if (this.isInput) {
 			this.element.on({
@@ -175,6 +173,7 @@
 		constructor: Colorpicker,
 		
 		show: function(e) {
+			this.picker.appendTo('body');
 			this.picker.show();
 			this.height = this.component ? this.component.outerHeight() : this.element.outerHeight();
 			this.place();
@@ -217,7 +216,7 @@
 		},
 		
 		hide: function(){
-			this.picker.hide();
+			this.picker.hide().detach();
 			$(window).off('resize', this.place);
 			if (!this.isInput) {
 				$(document).off({
@@ -237,10 +236,15 @@
 		},
 		
 		place: function(){
-			var offset = this.component ? this.component.offset() : this.element.offset();
+			var zIndex = parseInt(this.element.parents().filter(function() {
+							return $(this).css('z-index') != 'auto';
+						}).first().css('z-index'))+10;
+			var offset = this.component ? this.component.parent().offset() : this.element.offset();
+			var height = this.component ? this.component.outerHeight(true) : this.element.outerHeight(true);
 			this.picker.css({
-				top: offset.top + this.height,
-				left: offset.left
+				top: offset.top + height,
+				left: offset.left,
+				zIndex: zIndex
 			});
 		},
 		
