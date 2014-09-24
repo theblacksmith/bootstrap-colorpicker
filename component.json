@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-colorpicker",
   "version": "1.0.0",
-  "main": ["./js/bootstrap-colorpicker.js","./css/colorpicker.js"],
+  "main": ["./js/bootstrap-colorpicker.js","./css/colorpicker.css"],
   "repository": {
     "type": "git",
     "url": "git://github.com/theblacksmith/bootstrap-colorpicker.git"
